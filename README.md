@@ -8,7 +8,8 @@ images shot with a Fujifilm camera.
 From the directory containing `fujifilm_ratings.lua`, run the following:
 ```
 $ mkdir -p ~/.config/darktable/lua/
-$ cp fujifilm_ratings.lua ~/.config/darktable/lua/
+$ ln -sf lib ~/.config/darktable/lua/lib
+$ ln -sf fujifilm_ratings.lua ~/.config/darktable/lua/
 $ echo 'require "fujifilm_ratings"' >> ~/.config/darktable/luarc
 ```
 
