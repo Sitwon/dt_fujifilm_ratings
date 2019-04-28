@@ -40,8 +40,10 @@ local function detect_rating(event, image)
 		dt.print_error(_("exiftool not found"))
 		return
 	end
+	local rating = 0
 	local RAF_filename = tostring(image)
 	local JPEG_filename = string.gsub(RAF_filename, "%.RAF$", ".JPG")
+
 	local command = "exiftool -Rating " .. JPEG_filename
 	dt.print_error(command)
 	local output = io.popen(command)
@@ -49,10 +51,14 @@ local function detect_rating(event, image)
 	output:close()
 	if string.len(jpeg_result) > 0 then
 		jpeg_result = string.gsub(jpeg_result, "^Rating.*(%d)", "%1")
-		image.rating = tonumber(jpeg_result)
-		dt.print_error(_("Using JPEG Rating: ") .. tostring(jpeg_result))
-		return
+		rating = tonumber(jpeg_result)
+		if rating > 0 then
+			image.rating = rating
+			dt.print_error(_("Using JPEG Rating: ") .. tostring(jpeg_result))
+			return
+		end
 	end
+
 	command = "exiftool -Rating " .. RAF_filename
 	dt.print_error(command)
 	output = io.popen(command)
