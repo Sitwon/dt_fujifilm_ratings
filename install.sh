@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOCAL_DIR=$(dirname "$BASH_SOURCE")
+LOCAL_DIR="$(readlink -f "$(dirname "$BASH_SOURCE")")"
 
 DT_DIR="$HOME/.config/darktable"
 LUA_DIR="$DT_DIR/lua"
